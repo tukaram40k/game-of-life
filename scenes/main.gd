@@ -3,15 +3,24 @@ extends Node2D
 # сцена с клеткой, она видна в инспекторе
 @export var cell_scene_basic : PackedScene
 
+# продолжительность цикла игры
+@export var update_interval: float = 0.5
+
+# референс на нод с таймером
+@onready var timer: Timer = $Timer
+
+var paused: bool = false
+
 # размер карты и клеток
 var row_count : int = 50
 var column_count : int = 50
-var cell_size: int = 50
+var cell_size: int = 100
 
 # array для клеток
 var cell_matrix: Array = []
 var previous_cell_states: Array = []
 
+# эта херь запускается 1 раз на старте игры
 func _ready():
 	get_window().mode = Window.MODE_FULLSCREEN
 	
@@ -34,10 +43,20 @@ func _ready():
 			else:
 				previous_cell_states[column].push_back(true)
 			cell_matrix[column].push_back(cell)
+	
+	# стартует таймер
+	timer.wait_time = update_interval
+	timer.timeout.connect(update_game_state)
+	
+	# ВАЖНО: эта херня не дает другим нодам видеть нажатие ESC
+	# с этим можно проебаться потом
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
+# чекает если позиция это край карты
 func is_edge(column, row) -> bool:
 	return row == 0 or column == 0 or row == row_count-1 or column == column_count -1
 
+# возвращает количество живых соседей
 func get_alive_neighbours(column, row) -> int:
 	var count = 0
 	for x in range(-1, 2):
@@ -64,8 +83,19 @@ func get_next_state(column, row) -> bool:
 			return true
 	return current
 
+# эта херь чекает нажатие кнопок каждый кадр
+func _input(event):
+	# реагирует на spacebar/enter
+	if event.is_action_pressed("ui_accept"):
+		paused = !paused
+		timer.paused = paused
+	
+	# реагирует на esc
+	if event.is_action_pressed("ui_cancel"):
+		get_tree().quit()
+
 # апдейт, запускается при каждом кадре
-func _process(delta):
+func update_game_state():
 	# копируем позицию каждой клетки в аррэй
 	for column in range(column_count):
 		for row in range(row_count):

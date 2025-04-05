@@ -6,3 +6,7 @@
 [node name="Main" type="Node2D"]
 script = ExtResource("1_d8abv")
 cell_scene_basic = ExtResource("2_408un")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
