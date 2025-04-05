@@ -1,3 +1,8 @@
-[gd_scene format=3 uid="uid://lsxtdiujlndm"]
+[gd_scene load_steps=3 format=3 uid="uid://lsxtdiujlndm"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_d8abv"]
+[ext_resource type="PackedScene" uid="uid://b51bwqi0b8hf7" path="res://scenes/cell.tscn" id="2_408un"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_d8abv")
+cell_scene_basic = ExtResource("2_408un")
