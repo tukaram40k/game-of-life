@@ -1,2 +1,2 @@
 # About
-This is a collection of laboratory works on multimedia technology.
+Game of life implementation with modified rules in Godot.
