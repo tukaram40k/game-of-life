@@ -4,7 +4,7 @@ extends Node2D
 @export var cell_scene_basic : PackedScene
 
 # продолжительность цикла игры
-@export var update_interval: float = 0.5
+@export var update_interval: float = 0.2
 
 # референс на нод с таймером
 @onready var timer: Timer = $Timer
@@ -14,7 +14,11 @@ var paused: bool = false
 # размер карты и клеток
 var row_count : int = 50
 var column_count : int = 50
-var cell_size: int = 100
+var cell_size: int = 80
+
+# чтобы клетки рисовать
+var mouse_dragging := false
+var last_edited_cell := Vector2(-1, -1)
 
 # array для клеток
 var cell_matrix: Array = []
@@ -93,6 +97,35 @@ func _input(event):
 	# реагирует на esc
 	if event.is_action_pressed("ui_cancel"):
 		get_tree().quit()
+		
+	# реагирует на мышку
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			mouse_dragging = event.pressed
+			if mouse_dragging:
+				handle_cell_edit(get_global_mouse_position())
+			else:
+				last_edited_cell = Vector2(-1, -1)
+	
+	elif event is InputEventMouseMotion and mouse_dragging:
+		handle_cell_edit(get_global_mouse_position())
+
+# эта херь рисует новые клетки когда жмешь мышку
+func handle_cell_edit(mouse_position: Vector2):
+	var local_pos = to_local(mouse_position)
+	var column = int(local_pos.x / cell_size)
+	var row = int(local_pos.y / cell_size)
+	
+	if column <= 0 or column >= column_count - 1:
+		return
+	if row <= 0 or row >= row_count - 1:
+		return
+	
+	if Vector2(column, row) != last_edited_cell:
+		last_edited_cell = Vector2(column, row)
+		
+		cell_matrix[column][row].visible = !cell_matrix[column][row].visible
+		previous_cell_states[column][row] = cell_matrix[column][row].visible
 
 # апдейт, запускается при каждом кадре
 func update_game_state():
