@@ -4,7 +4,7 @@ extends Node2D
 @export var cell_scene_basic : PackedScene
 
 # продолжительность цикла игры
-@export var update_interval: float = 0.2
+@export var update_interval: float = 0.5
 
 # референс на нод с таймером
 @onready var timer: Timer = $Timer
@@ -14,7 +14,7 @@ var paused: bool = false
 # размер карты и клеток
 var row_count : int = 50
 var column_count : int = 50
-var cell_size: int = 80
+var cell_size: int = 140
 
 # чтобы клетки рисовать
 var mouse_dragging := false
