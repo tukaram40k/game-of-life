@@ -25,4 +25,4 @@ window/size/mode=3
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.023789, 0.13271, 0.249317, 1)
+environment/defaults/default_clear_color=Color(0.690265, 0.751364, 0.878225, 1)
