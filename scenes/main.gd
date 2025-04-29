@@ -96,7 +96,8 @@ func _input(event):
 	
 	# реагирует на esc
 	if event.is_action_pressed("ui_cancel"):
-		get_tree().quit()
+		# назад в главное меню
+		get_tree().change_scene_to_file("res://menus/main_menu.tscn")
 		
 	# реагирует на мышку
 	if event is InputEventMouseButton:
