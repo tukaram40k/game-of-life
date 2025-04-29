@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccg87uf274n15"]
+[gd_scene load_steps=4 format=3 uid="uid://ccg87uf274n15"]
 
+[ext_resource type="Script" path="res://menus/main_menu.gd" id="1_fdffy"]
 [ext_resource type="Texture2D" uid="uid://d01s0fug4v2r3" path="res://assets/background.png" id="1_ssg6i"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8f2ut"]
@@ -12,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_fdffy")
 
 [node name="Panel" type="Panel" parent="."]
 texture_filter = 1
@@ -38,20 +40,24 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 25
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="StartButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
 text = "Start"
 
-[node name="Button2" type="Button" parent="VBoxContainer"]
+[node name="ControlsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
 text = "Controls"
 
-[node name="Button3" type="Button" parent="VBoxContainer"]
+[node name="ExitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
-text = "Quit"
+text = "Exit"
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ControlsButton" to="." method="_on_controls_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
