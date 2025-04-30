@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://lsxtdiujlndm"]
+[gd_scene load_steps=14 format=3 uid="uid://lsxtdiujlndm"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_d8abv"]
 [ext_resource type="PackedScene" uid="uid://b51bwqi0b8hf7" path="res://scenes/cell.tscn" id="2_408un"]
@@ -7,11 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://bv3ongjalo8df" path="res://assets/images/cell2.png" id="4_p0wwf"]
 [ext_resource type="PackedScene" uid="uid://cieqtouidcblp" path="res://scenes/cell3.tscn" id="4_y8hxk"]
 [ext_resource type="Texture2D" uid="uid://61u5ugs4klk8" path="res://assets/images/cell3.png" id="5_cmmi4"]
-
-[sub_resource type="GDScript" id="GDScript_vwjhq"]
-script/source = "extends Control
-
-"
+[ext_resource type="Script" path="res://scenes/control.gd" id="5_hnspv"]
+[ext_resource type="FontFile" uid="uid://cj7xlc3pgagd3" path="res://assets/fonts/GrapeSoda.ttf" id="9_die6q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxyey"]
 bg_color = Color(0.243137, 0.298039, 0.368627, 0.890196)
@@ -19,6 +16,12 @@ corner_radius_top_left = 30
 corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pr4yv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hyp37"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_goh7t"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_d8abv")
@@ -37,20 +40,22 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = SubResource("GDScript_vwjhq")
+script = ExtResource("5_hnspv")
 
 [node name="Panel" type="Panel" parent="CanvasLayer/Control"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 1.025
+anchor_left = 7.65
 anchor_top = 0.8
-anchor_right = 17.0
-anchor_bottom = 5.025
+anchor_right = 21.825
+anchor_bottom = 4.196
+offset_left = -3.05176e-05
+offset_bottom = 14.16
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sxyey")
 
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/Control/Panel"]
+[node name="TextureButton1" type="TextureButton" parent="CanvasLayer/Control/Panel"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -58,10 +63,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -265.5
-offset_top = -65.5
-offset_right = -125.5
-offset_bottom = 65.5
+offset_left = -228.5
+offset_top = -50.0
+offset_right = -128.5
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("3_uxgcx")
@@ -75,10 +80,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -70.0
-offset_top = -65.5
-offset_right = 70.0
-offset_bottom = 65.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("4_p0wwf")
@@ -92,11 +97,47 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 116.5
-offset_top = -65.5
-offset_right = 256.5
-offset_bottom = 65.5
+offset_left = 126.5
+offset_top = -50.0
+offset_right = 226.5
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("5_cmmi4")
 stretch_mode = 5
+
+[node name="Panel2" type="Panel" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8
+anchor_top = 0.8
+anchor_right = 6.375
+anchor_bottom = 4.196
+offset_right = -1.52588e-05
+offset_bottom = 14.16
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sxyey")
+
+[node name="Button" type="Button" parent="CanvasLayer/Control/Panel2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -62.0
+offset_right = 93.5
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_hover_color = Color(0.488178, 0.521123, 0.898586, 1)
+theme_override_fonts/font = ExtResource("9_die6q")
+theme_override_font_sizes/font_size = 70
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pr4yv")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_hyp37")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_goh7t")
+text = "Back"
+
+[connection signal="pressed" from="CanvasLayer/Control/Panel2/Button" to="CanvasLayer/Control" method="_on_back_button_pressed"]

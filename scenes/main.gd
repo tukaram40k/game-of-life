@@ -400,3 +400,13 @@ func update_game_state():
 				else:
 					# Просто обновляем видимость
 					cell_matrix[column][row].visible = new_state["alive"]
+
+# конектится к кнопкам, не трогайте
+func _on_cell1_button_pressed():
+	current_cell_type = 0
+
+func _on_cell2_button_pressed():
+	current_cell_type = 1
+
+func _on_cell3_button_pressed():
+	current_cell_type = 2
