@@ -1,0 +1,139 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdntmam502dov"]
+
+[ext_resource type="Texture2D" uid="uid://dagmvkbt0i4h4" path="res://assets/images/splash-screen.png" id="1_k2nvn"]
+[ext_resource type="FontFile" uid="uid://cj7xlc3pgagd3" path="res://assets/fonts/GrapeSoda.ttf" id="2_mcgoh"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kj1i4"]
+texture = ExtResource("1_k2nvn")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0j0t8"]
+bg_color = Color(0.656499, 0.156424, 0.37385, 0.745098)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[node name="ControlsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundPanel" type="Panel" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_kj1i4")
+
+[node name="MenuBackground" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -586.0
+offset_top = -386.5
+offset_right = 586.0
+offset_bottom = 386.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0j0t8")
+
+[node name="ControlsLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.5
+offset_top = -336.0
+offset_right = 72.5
+offset_bottom = -267.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_mcgoh")
+theme_override_font_sizes/font_size = 70
+text = "Controls"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -452.0
+offset_top = -233.0
+offset_right = 453.0
+offset_bottom = 312.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_mcgoh")
+theme_override_font_sizes/font_size = 60
+text = "Exit:"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_mcgoh")
+theme_override_font_sizes/font_size = 60
+text = "Pause:"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_mcgoh")
+theme_override_font_sizes/font_size = 60
+text = "Zoom:"
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_mcgoh")
+theme_override_font_sizes/font_size = 60
+text = "Escape"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_mcgoh")
+theme_override_font_sizes/font_size = 60
+text = "Spacebar"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_mcgoh")
+theme_override_font_sizes/font_size = 60
+text = "Mouse Wheel"
+horizontal_alignment = 1
