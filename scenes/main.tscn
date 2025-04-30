@@ -1,10 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://lsxtdiujlndm"]
+[gd_scene load_steps=10 format=3 uid="uid://lsxtdiujlndm"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_d8abv"]
 [ext_resource type="PackedScene" uid="uid://b51bwqi0b8hf7" path="res://scenes/cell.tscn" id="2_408un"]
+[ext_resource type="PackedScene" uid="uid://bd3pdlrwmlbpi" path="res://scenes/cell2.tscn" id="3_63dwc"]
 [ext_resource type="Texture2D" uid="uid://cjqtmklqwhluw" path="res://assets/images/cell1.png" id="3_uxgcx"]
 [ext_resource type="Texture2D" uid="uid://bv3ongjalo8df" path="res://assets/images/cell2.png" id="4_p0wwf"]
+[ext_resource type="PackedScene" uid="uid://cieqtouidcblp" path="res://scenes/cell3.tscn" id="4_y8hxk"]
 [ext_resource type="Texture2D" uid="uid://61u5ugs4klk8" path="res://assets/images/cell3.png" id="5_cmmi4"]
+
+[sub_resource type="GDScript" id="GDScript_vwjhq"]
+script/source = "extends Control
+
+"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxyey"]
 bg_color = Color(0.243137, 0.298039, 0.368627, 0.890196)
@@ -16,6 +23,8 @@ corner_radius_bottom_left = 30
 [node name="Main" type="Node2D"]
 script = ExtResource("1_d8abv")
 cell_scene_basic = ExtResource("2_408un")
+cell_scene_1 = ExtResource("3_63dwc")
+cell_scene_2 = ExtResource("4_y8hxk")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
@@ -28,6 +37,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = SubResource("GDScript_vwjhq")
 
 [node name="Panel" type="Panel" parent="CanvasLayer/Control"]
 layout_mode = 1
