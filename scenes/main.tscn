@@ -1,7 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://lsxtdiujlndm"]
+[gd_scene load_steps=7 format=3 uid="uid://lsxtdiujlndm"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_d8abv"]
 [ext_resource type="PackedScene" uid="uid://b51bwqi0b8hf7" path="res://scenes/cell.tscn" id="2_408un"]
+[ext_resource type="Texture2D" uid="uid://cjqtmklqwhluw" path="res://assets/images/cell1.png" id="3_uxgcx"]
+[ext_resource type="Texture2D" uid="uid://bv3ongjalo8df" path="res://assets/images/cell2.png" id="4_p0wwf"]
+[ext_resource type="Texture2D" uid="uid://61u5ugs4klk8" path="res://assets/images/cell3.png" id="5_cmmi4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxyey"]
+bg_color = Color(0.243137, 0.298039, 0.368627, 0.890196)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_d8abv")
@@ -10,3 +20,73 @@ cell_scene_basic = ExtResource("2_408un")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.025
+anchor_top = 0.8
+anchor_right = 17.0
+anchor_bottom = 5.025
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sxyey")
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/Control/Panel"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -265.5
+offset_top = -65.5
+offset_right = -125.5
+offset_bottom = 65.5
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("3_uxgcx")
+stretch_mode = 5
+
+[node name="TextureButton2" type="TextureButton" parent="CanvasLayer/Control/Panel"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -65.5
+offset_right = 70.0
+offset_bottom = 65.5
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("4_p0wwf")
+stretch_mode = 5
+
+[node name="TextureButton3" type="TextureButton" parent="CanvasLayer/Control/Panel"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 116.5
+offset_top = -65.5
+offset_right = 256.5
+offset_bottom = 65.5
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("5_cmmi4")
+stretch_mode = 5
