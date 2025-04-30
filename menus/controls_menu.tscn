@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdntmam502dov"]
+[gd_scene load_steps=9 format=3 uid="uid://cdntmam502dov"]
 
 [ext_resource type="Texture2D" uid="uid://dagmvkbt0i4h4" path="res://assets/images/splash-screen.png" id="1_k2nvn"]
+[ext_resource type="Script" path="res://menus/controls_menu.gd" id="1_sdp6k"]
 [ext_resource type="FontFile" uid="uid://cj7xlc3pgagd3" path="res://assets/fonts/GrapeSoda.ttf" id="2_mcgoh"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kj1i4"]
@@ -13,6 +14,27 @@ corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8drs"]
+bg_color = Color(0.476858, 0.0492223, 0.181972, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vveq2"]
+bg_color = Color(0.530277, 0.0968009, 0.336373, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0n6g"]
+bg_color = Color(0.560784, 0.0666667, 0.219608, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
 [node name="ControlsMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -20,6 +42,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_sdp6k")
 
 [node name="BackgroundPanel" type="Panel" parent="."]
 texture_filter = 1
@@ -45,6 +68,24 @@ offset_bottom = 386.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0j0t8")
+
+[node name="Button" type="Button" parent="MenuBackground"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.051
+anchor_top = 0.056
+anchor_right = 0.214
+anchor_bottom = 0.186
+offset_left = 0.227997
+offset_top = 0.211998
+offset_right = 0.192017
+offset_bottom = -0.278
+theme_override_fonts/font = ExtResource("2_mcgoh")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/hover = SubResource("StyleBoxFlat_i8drs")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vveq2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_l0n6g")
+text = "Back"
 
 [node name="ControlsLabel" type="Label" parent="."]
 layout_mode = 1
@@ -73,7 +114,7 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -452.0
-offset_top = -233.0
+offset_top = -218.0
 offset_right = 453.0
 offset_bottom = 312.0
 grow_horizontal = 2
@@ -137,3 +178,5 @@ theme_override_fonts/font = ExtResource("2_mcgoh")
 theme_override_font_sizes/font_size = 60
 text = "Mouse Wheel"
 horizontal_alignment = 1
+
+[connection signal="pressed" from="MenuBackground/Button" to="." method="_on_back_button_pressed"]
