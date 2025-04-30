@@ -14,8 +14,8 @@ extends Node2D
 var paused: bool = false
 
 # размер карты и клеток
-var row_count : int = 50
-var column_count : int = 50
+var row_count : int = 100
+var column_count : int = 100
 var cell_size: int = 140
 
 # чтобы клетки рисовать
