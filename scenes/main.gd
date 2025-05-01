@@ -59,7 +59,7 @@ func _ready():
 			var cell_type = 0 # По умолчанию базовая клетка
 			
 			# Рандомно выбираем тип клетки (но с малой вероятностью для не-базовых)
-			var rand_val = rng.randi_range(0, 20)
+			var rand_val = rng.randi_range(0, 2)
 			if rand_val == 1:
 				cell_type = 1
 			elif rand_val == 2:
@@ -133,14 +133,6 @@ func draw_inverted_zone():
 	
 	# Add the line to the scene
 	add_child(border_line)
-	
-	# Optional: Add a label to identify the zone
-	var label = Label.new()
-	label.name = "InvertedZoneLabel"
-	label.text = "Inverted Zone"
-	label.position = Vector2(start_x + width/2 - 40, start_y - 20)  # Position above the zone
-	label.modulate = Color(1, 0, 0)  # Red text
-	add_child(label)
 
 # Inverted zone, where rules changes
 func is_in_inverted_zone(x: int, y: int) -> bool:
@@ -276,46 +268,45 @@ func get_next_state_basic(column, row, neighbours_by_type) -> Dictionary:
 	
 	return result
 
-# Правила для типа 1: Выживает при 2-4 соседях, рождается при 3-4 соседях
-# возвращает следующий стейт для клетки типа 1 с учетом инвертированной зоны
+# Revised: Follow Conway's rules for type 1 cells
 func get_next_state_type1(column, row, neighbours_by_type) -> Dictionary:
 	var current = previous_cell_states[column][row]
 	var neighbours_alive = neighbours_by_type["total"]
 	var result = {"alive": current, "type": 1}
 	
-	# Проверяем, находится ли клетка в инвертированной зоне
+	# Checking if cell is in inverted zone
 	var in_inverted_zone = is_in_inverted_zone(column, row)
 	
-	if current == true:  # если клетка живая
+	if current == true:  # if cell is alive
 		if in_inverted_zone:
-			# ИНВЕРТИРОВАННЫЕ ПРАВИЛА: выживает при <2 или >4 соседях
-			if neighbours_alive >= 2 and neighbours_alive <= 4:
-				result["alive"] = false  # умирает
+			# INVERTED RULES: survives when NOT 2-3 neighbors
+			if neighbours_alive == 2 or neighbours_alive == 3:
+				result["alive"] = false  # dies
 			else:
-				# Взаимодействие с другими типами
+				# Interaction with other types
 				var interaction_result = process_cell_interaction(1, neighbours_by_type)
 				if interaction_result == -1:
 					result["alive"] = false
 				else:
 					result["type"] = interaction_result
 		else:
-			# СТАНДАРТНЫЕ ПРАВИЛА: тип 1 выживает при 2-4 соседях
-			if neighbours_alive < 2 or neighbours_alive > 4:
+			# STANDARD CONWAY RULES: dies with <2 or >3 neighbors
+			if neighbours_alive < 2 or neighbours_alive > 3:
 				result["alive"] = false
 			else:
-				# Взаимодействие с другими типами
+				# Interaction with other types
 				var interaction_result = process_cell_interaction(1, neighbours_by_type)
 				if interaction_result == -1:
 					result["alive"] = false
 				else:
 					result["type"] = interaction_result
-	else:  # если клетка мертвая
+	else:  # if cell is dead
 		if in_inverted_zone:
-			# ИНВЕРТИРОВАННЫЕ ПРАВИЛА: клетка оживает, когда НЕ 3-4 соседей
-			if neighbours_alive < 3 or neighbours_alive > 4:
+			# INVERTED RULES: born when NOT exactly 3 neighbors
+			if neighbours_alive != 3:
 				result["alive"] = true
 				
-				# Определяем тип новой клетки в зависимости от соседей
+				# Determine type based on neighbors
 				if neighbours_by_type["basic"] > neighbours_by_type["type1"] and neighbours_by_type["basic"] > neighbours_by_type["type2"]:
 					result["type"] = 0
 				elif neighbours_by_type["type2"] > neighbours_by_type["basic"] and neighbours_by_type["type2"] > neighbours_by_type["type1"]:
@@ -323,11 +314,11 @@ func get_next_state_type1(column, row, neighbours_by_type) -> Dictionary:
 				else:
 					result["type"] = 1
 		else:
-			# СТАНДАРТНЫЕ ПРАВИЛА: тип 1 оживает при 3-4 соседях
-			if neighbours_alive >= 3 and neighbours_alive <= 4:
+			# STANDARD CONWAY RULES: born with exactly 3 neighbors
+			if neighbours_alive == 3:
 				result["alive"] = true
 				
-				# Определяем тип новой клетки в зависимости от соседей
+				# Determine type based on neighbors
 				if neighbours_by_type["basic"] > neighbours_by_type["type1"] and neighbours_by_type["basic"] > neighbours_by_type["type2"]:
 					result["type"] = 0
 				elif neighbours_by_type["type2"] > neighbours_by_type["basic"] and neighbours_by_type["type2"] > neighbours_by_type["type1"]:
@@ -337,46 +328,45 @@ func get_next_state_type1(column, row, neighbours_by_type) -> Dictionary:
 	
 	return result
 
-# Правила для типа 2: Выживает при 1-5 соседях, рождается только при точно 2 соседях
-# возвращает следующий стейт для клетки типа 2 с учетом инвертированной зоны
+# Revised: Follow Conway's rules for type 2 cells
 func get_next_state_type2(column, row, neighbours_by_type) -> Dictionary:
 	var current = previous_cell_states[column][row]
 	var neighbours_alive = neighbours_by_type["total"]
 	var result = {"alive": current, "type": 2}
 	
-	# Проверяем, находится ли клетка в инвертированной зоне
+	# Checking if cell is in inverted zone
 	var in_inverted_zone = is_in_inverted_zone(column, row)
 	
-	if current == true:  # если клетка живая
+	if current == true:  # if cell is alive
 		if in_inverted_zone:
-			# ИНВЕРТИРОВАННЫЕ ПРАВИЛА: выживает при <1 или >5 соседях
-			if neighbours_alive >= 1 and neighbours_alive <= 5:
-				result["alive"] = false  # умирает
+			# INVERTED RULES: survives when NOT 2-3 neighbors
+			if neighbours_alive == 2 or neighbours_alive == 3:
+				result["alive"] = false  # dies
 			else:
-				# Взаимодействие с другими типами
+				# Interaction with other types
 				var interaction_result = process_cell_interaction(2, neighbours_by_type)
 				if interaction_result == -1:
 					result["alive"] = false
 				else:
 					result["type"] = interaction_result
 		else:
-			# СТАНДАРТНЫЕ ПРАВИЛА: тип 2 выживает при 1-5 соседях
-			if neighbours_alive < 1 or neighbours_alive > 5:
+			# STANDARD CONWAY RULES: dies with <2 or >3 neighbors
+			if neighbours_alive < 2 or neighbours_alive > 3:
 				result["alive"] = false
 			else:
-				# Взаимодействие с другими типами
+				# Interaction with other types
 				var interaction_result = process_cell_interaction(2, neighbours_by_type)
 				if interaction_result == -1:
 					result["alive"] = false
 				else:
 					result["type"] = interaction_result
-	else:  # если клетка мертвая
+	else:  # if cell is dead
 		if in_inverted_zone:
-			# ИНВЕРТИРОВАННЫЕ ПРАВИЛА: клетка оживает, когда НЕ 2 соседа
-			if neighbours_alive != 2:
+			# INVERTED RULES: born when NOT exactly 3 neighbors
+			if neighbours_alive != 3:
 				result["alive"] = true
 				
-				# Определяем тип новой клетки в зависимости от соседей
+				# Determine type based on neighbors
 				if neighbours_by_type["basic"] > neighbours_by_type["type1"] and neighbours_by_type["basic"] > neighbours_by_type["type2"]:
 					result["type"] = 0
 				elif neighbours_by_type["type1"] > neighbours_by_type["basic"] and neighbours_by_type["type1"] > neighbours_by_type["type2"]:
@@ -384,11 +374,11 @@ func get_next_state_type2(column, row, neighbours_by_type) -> Dictionary:
 				else:
 					result["type"] = 2
 		else:
-			# СТАНДАРТНЫЕ ПРАВИЛА: тип 2 оживает только при 2 соседях
-			if neighbours_alive == 2:
+			# STANDARD CONWAY RULES: born with exactly 3 neighbors
+			if neighbours_alive == 3:
 				result["alive"] = true
 				
-				# Определяем тип новой клетки в зависимости от соседей
+				# Determine type based on neighbors
 				if neighbours_by_type["basic"] > neighbours_by_type["type1"] and neighbours_by_type["basic"] > neighbours_by_type["type2"]:
 					result["type"] = 0
 				elif neighbours_by_type["type1"] > neighbours_by_type["basic"] and neighbours_by_type["type1"] > neighbours_by_type["type2"]:
@@ -543,3 +533,14 @@ func _on_cell2_button_pressed():
 
 func _on_cell3_button_pressed():
 	current_cell_type = 2
+
+func _on_reset_button_pressed():
+	# Iterate through all cells in the grid
+	for column in range(1, column_count - 1):
+		for row in range(1, row_count - 1):
+			if !is_edge(column, row) and cell_matrix[column][row]:
+				# Set cell to invisible (dead)
+				cell_matrix[column][row].visible = false
+				
+				# Update the previous cell states array to match
+				previous_cell_states[column][row] = false
