@@ -113,7 +113,7 @@ func draw_inverted_zone():
 	border.size = Vector2(width, height)
 	
 	# Make it hollow by setting only the border color
-	border.color = Color(1, 0, 0, 0.1)  # Semi-transparent red fill
+	border.color = Color(0, 1, 0, 0.1)
 	
 	# Add to the scene
 	add_child(border)
@@ -122,7 +122,7 @@ func draw_inverted_zone():
 	var border_line = Line2D.new()
 	border_line.name = "InvertedZoneLine"
 	border_line.width = 2.0
-	border_line.default_color = Color(1, 0, 0, 0.8)  # Red border
+	border_line.default_color = Color(0, 1, 0, 0.8)  # Green border
 	
 	# Add points to create the rectangle
 	border_line.add_point(Vector2(start_x, start_y))  # Top-left
@@ -417,13 +417,10 @@ func _input(event):
 		if event.pressed:
 			if event.keycode == KEY_1:
 				current_cell_type = 0
-				print("Выбран тип клетки: Базовая (0)")
 			elif event.keycode == KEY_2:
 				current_cell_type = 1
-				print("Выбран тип клетки: Тип 1 (1)")
 			elif event.keycode == KEY_3:
 				current_cell_type = 2
-				print("Выбран тип клетки: Тип 2 (2)")
 	
 	# реагирует на мышку
 	if event is InputEventMouseButton:
@@ -534,7 +531,7 @@ func _on_cell2_button_pressed():
 func _on_cell3_button_pressed():
 	current_cell_type = 2
 
-func _on_reset_button_pressed():
+func _on_clear_button_pressed():
 	# Iterate through all cells in the grid
 	for column in range(1, column_count - 1):
 		for row in range(1, row_count - 1):
@@ -544,3 +541,43 @@ func _on_reset_button_pressed():
 				
 				# Update the previous cell states array to match
 				previous_cell_states[column][row] = false
+
+func _on_reset_button_pressed():
+	var rng = RandomNumberGenerator.new()
+	
+	_on_clear_button_pressed()
+	
+	# Now randomly spawn new cells with different types
+	for column in range(1, column_count - 1):
+		for row in range(1, row_count - 1):
+			if is_edge(column, row):
+				continue
+				
+			if rng.randi_range(0, 1) == 1:
+				var cell_type = 0
+				var rand_val = rng.randi_range(0, 2)
+				if rand_val == 1:
+					cell_type = 1
+				elif rand_val == 2:
+					cell_type = 2
+				
+				# Remove existing cell
+				if cell_matrix[column][row]:
+					cell_matrix[column][row].queue_free()
+				
+				# Create new cell of the chosen type
+				var cell
+				match cell_type:
+					0: cell = cell_scene_basic.instantiate()
+					1: cell = cell_scene_1.instantiate()
+					2: cell = cell_scene_2.instantiate()
+				
+				self.add_child(cell)
+				cell.position = Vector2(column * cell_size, row * cell_size)
+				cell.visible = true
+				
+				# Update arrays
+				cell_matrix[column][row] = cell
+				previous_cell_states[column][row] = true
+				cell_types[column][row] = cell_type
+				previous_cell_types[column][row] = cell_type

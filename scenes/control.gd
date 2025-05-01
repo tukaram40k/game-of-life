@@ -6,7 +6,8 @@ func _ready() -> void:
 	var button2 = $Panel/TextureButton2
 	var button3 = $Panel/TextureButton3
 	
-	var reset_button = $Panel3/ResetButton
+	var clear_button = $Panel3/ClearButton
+	var reset_button = $Panel4/ResetButton
 	
 	# реф к main.gd
 	var root = get_tree().get_root().get_child(0)
@@ -24,7 +25,8 @@ func _ready() -> void:
 	button3.pressed.connect(root._on_cell3_button_pressed)
 	button3.pressed.connect(_on_button3_pressed)
 	
-	# кнопка clear
+	# кнопки clear и reset
+	clear_button.pressed.connect(root._on_clear_button_pressed)
 	reset_button.pressed.connect(root._on_reset_button_pressed)
 
 # затемнение для активной кнопки
