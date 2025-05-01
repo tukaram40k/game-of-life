@@ -6,8 +6,15 @@ func _ready() -> void:
 	var button2 = $Panel/TextureButton2
 	var button3 = $Panel/TextureButton3
 	
+	var clear_button = $Panel3/ClearButton
+	var reset_button = $Panel4/ResetButton
+	
 	# реф к main.gd
 	var root = get_tree().get_root().get_child(0)
+	
+	# селектор клеток
+	# сразу затемнить дефолт
+	button1.modulate = Color(0.5, 0.5, 0.5)
 	
 	button1.pressed.connect(root._on_cell1_button_pressed)
 	button1.pressed.connect(_on_button1_pressed)
@@ -17,6 +24,10 @@ func _ready() -> void:
 	
 	button3.pressed.connect(root._on_cell3_button_pressed)
 	button3.pressed.connect(_on_button3_pressed)
+	
+	# кнопки clear и reset
+	clear_button.pressed.connect(root._on_clear_button_pressed)
+	reset_button.pressed.connect(root._on_reset_button_pressed)
 
 # затемнение для активной кнопки
 func _on_button1_pressed():

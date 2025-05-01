@@ -143,4 +143,73 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_hyp37")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_goh7t")
 text = "Back"
 
+[node name="Panel3" type="Panel" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 23.05
+anchor_top = 0.8
+anchor_right = 28.625
+anchor_bottom = 4.55
+offset_left = -6.10352e-05
+offset_right = -0.00012207
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sxyey")
+
+[node name="ClearButton" type="Button" parent="CanvasLayer/Control/Panel3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -62.0
+offset_right = 93.5
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.488178, 0.521123, 0.898586, 1)
+theme_override_fonts/font = ExtResource("9_die6q")
+theme_override_font_sizes/font_size = 70
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pr4yv")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_hyp37")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_goh7t")
+text = "Clear"
+
+[node name="Panel4" type="Panel" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 29.875
+anchor_top = 0.8
+anchor_right = 35.45
+anchor_bottom = 4.55
+offset_left = -0.00012207
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sxyey")
+
+[node name="ResetButton" type="Button" parent="CanvasLayer/Control/Panel4"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -62.0
+offset_right = 93.5
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.488178, 0.521123, 0.898586, 1)
+theme_override_fonts/font = ExtResource("9_die6q")
+theme_override_font_sizes/font_size = 70
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pr4yv")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_hyp37")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_goh7t")
+text = "Reset"
+
 [connection signal="pressed" from="CanvasLayer/Control/Panel2/Button" to="CanvasLayer/Control" method="_on_back_button_pressed"]
